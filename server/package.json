@@ -1,8 +1,6 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "author": "Josh Bryson",
-  "description": "",
+  "name": "crs",
+  "version": "0.0.0",
   "main": "src",
   "private": true,
   "scripts": {
