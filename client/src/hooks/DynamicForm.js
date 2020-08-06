@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import Fab from "@material-ui/core/Fab";
@@ -15,21 +15,53 @@ const useStyles = makeStyles({
     },
 });
 
-const DynamicForm = ({ labels }) => {
+const getFieldElements = (_fields) => {
+    return _fields.map(field => <TextField
+        id={field}
+        label={field}
+        variant="outlined"
+        color="secondary"
+    />)
+};
+
+const DynamicForm = ({ labels, isExtendedForm }) => {
+    const [fields, setFields] = useState(labels);
+    const [key, setKey] = useState();
+    const [fieldsElements, setFieldsElements] = useState(getFieldElements(labels));
+
+    const containerRef = useRef(null);
 
     const classes = useStyles();
 
+    // useEffect(() => {
+    //     const root = document.getElementById('root');
+    //     root.addEventListener('keyup', () => {
+    //         setKey(e.code);
+    //     });
+    //     return () => {
+    //         const root = document.getElementById('root');
+    //         root.removeEventListener('keyup');
+    //     };
+    // }, []);
+
+    useEffect(() => {
+        if (isExtendedForm || fields.length < 3) {
+            setFieldsElements(getFieldElements(fields));
+        } else {
+            setFieldsElements(getFieldElements(fields.slice(0,3)));
+        }
+    }, [fields, isExtendedForm]);
+
+    const handleNewField = () => {
+        setFields([...fields, 'New Field']);
+    };
+
     return (
         <>
-            <div className={classes.container}>
-                {labels.map(field => <TextField
-                    id={field}
-                    label={field}
-                    variant="outlined"
-                    color="secondary"
-                />)}
+            <div ref={containerRef} className={classes.container}>
+                {fieldsElements}
             </div>
-            <Fab color="secondary" aria-label="add">
+            <Fab color="secondary" aria-label="add" onClick={() => handleNewField(fields)}>
                 <AddIcon />
             </Fab>
         </>
