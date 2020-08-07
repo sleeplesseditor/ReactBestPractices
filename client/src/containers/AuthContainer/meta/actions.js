@@ -14,3 +14,8 @@ export const getAuthError = payload => ({
     type: constants.GET_AUTH_ERROR,
     payload,
 });
+
+export const logout = () => ({
+    type: constants.LOGOUT,
+});
+
