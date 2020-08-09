@@ -3,7 +3,7 @@ import blue from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
 import {localeData} from "../../../utils/languageDefaults";
 
-export const getTheme = (type = 'dark', fontFamily = localeData.en.fontFamily) =>
+export const getTheme = (type = 'light', fontFamily = localeData.en.fontFamily) =>
     createMuiTheme({
         palette: {
             type,

@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import LoginPage from "../LoginPage";
 import { getAuth } from 'containers/AuthContainer/meta/selectors';
 import NavigationContainer from 'containers/NavigationContainer';
+import { ThemeProvider } from '@material-ui/core';
+import { selectTheme } from 'containers/App/meta/selectors';
 
-function App({ auth }) {
+function App({ auth, theme }) {
   return (
-    <>
+    <ThemeProvider theme={theme} >
       {!auth.isAuthenticated && <LoginPage />}
       {auth.isAuthenticated && <NavigationContainer />}
-    </>
+    </ThemeProvider>
   );
 }
 
@@ -21,6 +23,7 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: getAuth(state),
+  theme: selectTheme(state)
 });
 
 const withConnect = connect(mapStateToProps);

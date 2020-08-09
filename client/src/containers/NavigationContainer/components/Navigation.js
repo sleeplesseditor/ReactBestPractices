@@ -4,6 +4,7 @@ import { useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
+import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -19,6 +20,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
+import Switch from '@material-ui/core/Switch';
 import {styles} from "../meta/styles";
 import NavItem from "./NavItem";
 
@@ -28,11 +30,12 @@ const icons = {
     'vacations': <VacationsIcon />,
 };
 
-function Navigation({ routes, user, logout }) {
+function Navigation({ routes, user, logout, updateThemeMode }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [items, setItems] = React.useState([]);
+    const [mode, setMode] = React.useState('light');
     const [selectedKey, setSelectedKey] = React.useState(routes[0].key);
 
     useEffect(() => {
@@ -53,6 +56,16 @@ function Navigation({ routes, user, logout }) {
         setOpen(false);
     };
 
+    const changeMode = () => {
+        if (mode === 'light') {
+            setMode('dark');
+            updateThemeMode('dark');
+        } else {
+            updateThemeMode('light');
+            setMode('light');
+        }
+    };
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -63,6 +76,13 @@ function Navigation({ routes, user, logout }) {
                 })}
             >
                 <Toolbar>
+                <Grid
+                    justify="space-between"
+                    alignItems="center"
+                    container 
+                    spacing={24}
+                    >
+                    <Grid item>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -72,12 +92,27 @@ function Navigation({ routes, user, logout }) {
                     >
                         <MenuIcon />
                     </IconButton>
+                    </Grid>
+                    <Grid item>
                     <Typography variant="h6" noWrap className={classes.title}>
-                        Vacations
+                        {selectedKey.toUpperCase()}
                     </Typography>
+                    </Grid>
+                    <Grid 
+                        item
+                        style={{"display": "flex", "alignItems": "center"}}
+                    >
+                    <Switch
+                        checked={mode === 'light'}
+                        onChange={changeMode}
+                        name="checkedB"
+                        color="tertiary"
+                        inputProps={{ 'aria-label': 'primary-checkbox' }}
+                    />
                     {user && <Typography variant="h6" noWrap>{user.username}</Typography>}
                     {user && <Button onClick={logout} color="inherit">Sign Out</Button>}
-
+                    </Grid>
+                </Grid>
                 </Toolbar>
             </AppBar>
             <Drawer
