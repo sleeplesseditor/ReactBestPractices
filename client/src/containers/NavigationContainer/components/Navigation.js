@@ -23,6 +23,10 @@ import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
 import {styles} from "../meta/styles";
 import NavItem from "./NavItem";
+import { Route, Switch as RouterSwitch } from 'react-router-dom';
+import LoginPage from 'containers/LoginPage';
+import VacationsContainer from 'containers/VacationsContainer';
+import ProfileContainer from 'containers/ProfileContainer';
 
 const useStyles = styles;
 const icons = {
@@ -40,11 +44,13 @@ function Navigation({ routes, user, logout, updateThemeMode }) {
 
     useEffect(() => {
         const drawerItems = routes.map(route => (
-            <NavItem onClick={() => setSelectedKey(route.key)}
-                     selectedKey={selectedKey}
-                     icon={icons[route.key]}
-                     item={route} />)
-        );
+            <NavItem 
+                onClick={() => setSelectedKey(route.key)}
+                selectedKey={selectedKey}
+                icon={icons[route.key]}
+                item={route} 
+            />
+        ));
         setItems(drawerItems)
     }, [routes, selectedKey]);
 
@@ -81,7 +87,7 @@ function Navigation({ routes, user, logout, updateThemeMode }) {
                     alignItems="center"
                     container 
                     spacing={24}
-                    >
+                >
                     <Grid item>
                     <IconButton
                         color="inherit"
@@ -95,7 +101,7 @@ function Navigation({ routes, user, logout, updateThemeMode }) {
                     </Grid>
                     <Grid item>
                     <Typography variant="h6" noWrap className={classes.title}>
-                        {selectedKey.toUpperCase()}
+                        Vacations
                     </Typography>
                     </Grid>
                     <Grid 
@@ -106,7 +112,7 @@ function Navigation({ routes, user, logout, updateThemeMode }) {
                         checked={mode === 'light'}
                         onChange={changeMode}
                         name="checkedB"
-                        color="tertiary"
+                        color="default"
                         inputProps={{ 'aria-label': 'primary-checkbox' }}
                     />
                     {user && <Typography variant="h6" noWrap>{user.username}</Typography>}
@@ -148,7 +154,11 @@ function Navigation({ routes, user, logout, updateThemeMode }) {
                     [classes.contentShift]: open,
                 })}
             >
-                <div className={classes.drawerHeader} />
+                <RouterSwitch>
+                    <Route path="/" exact component={VacationsContainer} />
+                    <Route path="/login" exact component={LoginPage} />
+                    <Route path="/profile" exact component={ProfileContainer} />
+                </RouterSwitch>
             </main>
         </div>
     );

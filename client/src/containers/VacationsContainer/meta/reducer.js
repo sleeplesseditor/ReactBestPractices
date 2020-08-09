@@ -10,7 +10,7 @@ const Vacations = (state = initialState, action) =>
     produce(state, draft => {
         switch (action.type) {
             case constants.GET_VACATIONS_SUCCESS:
-                draft.vacations = action.payload;
+                draft.vacations = action.payload.vacations;
                 break;
             case constants.GET_VACATIONS_ERROR:
                 break;

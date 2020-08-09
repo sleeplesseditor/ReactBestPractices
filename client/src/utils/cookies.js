@@ -21,5 +21,5 @@ export const clearDataFromStorage = () => {
 // get auth data from storage
 export const getDataFromStorage = () => ({
   token: Cookies.get('token', { domain, path }),
-  user: Cookies.get('user', { domain, path })
+  user: Cookies.get('user', { domain, path }),
 });

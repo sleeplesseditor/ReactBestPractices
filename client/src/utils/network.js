@@ -1,13 +1,17 @@
 import axios from 'axios';
 import { BASE_URL } from './environment';
+import {getDataFromStorage} from "./cookies";
 
 axios.interceptors.response.use(
     response => response.data
 );
 
 function network() {
+    const { token } = getDataFromStorage();
+    const headers = {
+        Authorization: `Bearer ${token}`
+    };
     const baseUrl = BASE_URL;
-    const headers = {};
 
     function setCredentials(token) {
         headers.Authorization = `Bearer ${token}`;
@@ -15,14 +19,14 @@ function network() {
 
     function* postData(action, body) {
         const url = baseUrl + action;
-        const config = { headers, body };
+        const config = { headers };
         return yield axios.post(url, body, config)
     }
 
     function* getData(action, params) {
         const url = baseUrl + action;
         const config = { headers, params };
-        return yield axios.get(url, config)
+        return yield axios.get(url, config);
     }
 
     function* putData(action, body) {
