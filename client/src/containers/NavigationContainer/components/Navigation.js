@@ -13,6 +13,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
+import PersonIcon from '@material-ui/icons/Person';
 import VacationsIcon from '@material-ui/icons/AirplanemodeActive';
 import ExitIcon from '@material-ui/icons/ExitToApp';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -24,16 +25,17 @@ import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
 import {styles} from "../meta/styles";
 import NavItem from "./NavItem";
-import { Route, Switch as RouterSwitch } from 'react-router-dom';
+import { Link, Route, Switch as RouterSwitch } from 'react-router-dom';
 import LoginPage from 'containers/LoginPage';
 import VacationsContainer from 'containers/VacationsContainer';
 import ProfileContainer from 'containers/ProfileContainer';
+import VacationDetailsContainer from 'containers/VacationDetailsContainer';
 import PrivateRoute from 'components/Routes/PrivateRoute';
 import PublicRoute from 'components/Routes/PublicRoute';
 
 const useStyles = styles;
 const icons = {
-    'home': <HomeIcon />,
+    'profile': <PersonIcon />,
     'vacations': <VacationsIcon />,
 };
 
@@ -47,12 +49,17 @@ function Navigation({ routes, user, logout, updateThemeMode, isAuthenticated }) 
 
     useEffect(() => {
         const drawerItems = routes.map(route => (
-            <NavItem 
-                onClick={() => setSelectedKey(route.key)}
-                selectedKey={selectedKey}
-                icon={icons[route.key]}
-                item={route} 
-            />
+            <Link 
+                to={route.path}
+                style={{ "textDecoration": "none", "color": "#4f4f4f" }}
+            >
+                <NavItem 
+                    onClick={() => setSelectedKey(route.key)}
+                    selectedKey={selectedKey}
+                    icon={icons[route.key]}
+                    item={route} 
+                />
+            </Link>
         ));
         setItems(drawerItems)
     }, [routes, selectedKey]);
@@ -161,6 +168,7 @@ function Navigation({ routes, user, logout, updateThemeMode, isAuthenticated }) 
                     <PrivateRoute path="/" exact isAuthenticated={isAuthenticated} Component={VacationsContainer} />
                     <PublicRoute path="/login" exact isAuthenticated={isAuthenticated} Component={LoginPage} />
                     <PrivateRoute path="/profile" exact isAuthenticated={isAuthenticated} Component={ProfileContainer} />
+                    <PrivateRoute path="/vacation" exact isAuthenticated={isAuthenticated} Component={VacationDetailsContainer} />
                 </RouterSwitch>
             </main>
         </div>

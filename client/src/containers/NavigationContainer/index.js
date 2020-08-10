@@ -6,8 +6,8 @@ import { getUser, selectIsAuthenticated } from 'containers/AuthContainer/meta/se
 
 const mapStateToProps = state => ({
     routes: [
-        { key: 'home', path: 'home', text: 'Home' }, 
-        { key: 'vacations', path: 'vacations', text: 'Vacations' }
+        { key: 'vacations', path: '/', text: 'Vacations' },
+        { key: 'profile', path: '/profile', text: 'Profile' }
     ],
     user: getUser(state),
     isAuthenticated: selectIsAuthenticated(state)
