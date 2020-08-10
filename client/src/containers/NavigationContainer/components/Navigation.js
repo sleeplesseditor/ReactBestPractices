@@ -1,5 +1,6 @@
 import React, {memo, useEffect} from 'react';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
 import { useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -27,6 +28,8 @@ import { Route, Switch as RouterSwitch } from 'react-router-dom';
 import LoginPage from 'containers/LoginPage';
 import VacationsContainer from 'containers/VacationsContainer';
 import ProfileContainer from 'containers/ProfileContainer';
+import PrivateRoute from 'components/Routes/PrivateRoute';
+import PublicRoute from 'components/Routes/PublicRoute';
 
 const useStyles = styles;
 const icons = {
@@ -34,7 +37,7 @@ const icons = {
     'vacations': <VacationsIcon />,
 };
 
-function Navigation({ routes, user, logout, updateThemeMode }) {
+function Navigation({ routes, user, logout, updateThemeMode, isAuthenticated }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -155,9 +158,9 @@ function Navigation({ routes, user, logout, updateThemeMode }) {
                 })}
             >
                 <RouterSwitch>
-                    <Route path="/" exact component={VacationsContainer} />
-                    <Route path="/login" exact component={LoginPage} />
-                    <Route path="/profile" exact component={ProfileContainer} />
+                    <PrivateRoute path="/" exact isAuthenticated={isAuthenticated} Component={VacationsContainer} />
+                    <PublicRoute path="/login" exact isAuthenticated={isAuthenticated} Component={LoginPage} />
+                    <PrivateRoute path="/profile" exact isAuthenticated={isAuthenticated} Component={ProfileContainer} />
                 </RouterSwitch>
             </main>
         </div>
@@ -165,7 +168,7 @@ function Navigation({ routes, user, logout, updateThemeMode }) {
 }
 
 Navigation.propTypes = {
-
+    isAuthenticated: PropTypes.bool
 };
 
 export default memo(Navigation);
