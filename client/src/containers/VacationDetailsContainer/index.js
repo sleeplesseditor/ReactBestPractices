@@ -1,11 +1,14 @@
 import { connect } from 'react-redux';
 import VacationDetails from './components/VacationDetails';
-import {getVacationDetails} from "./meta/actions";
+import { getVacationDetails } from "./meta/actions";
+import { selectVacation } from "./meta/selectors";
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    vacation: selectVacation(state),
+});
 
 const mapDispatchToProps = dispatch => ({
-    getVacationDetails,
+    dispatchGetVacationDetails: id => dispatch(getVacationDetails(id)),
 });
 
 const VacationDetailsContainer = connect(

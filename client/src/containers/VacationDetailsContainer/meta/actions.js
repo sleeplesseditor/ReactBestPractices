@@ -1,8 +1,9 @@
 import * as constants from "./constants";
 
 
-export const getVacationDetails = () => ({
+export const getVacationDetails = vacationId => ({
     type: constants.GET_VACATIONDETAILS,
+    vacationId
 });
 
 export const getVacationDetailsSuccess = payload => ({

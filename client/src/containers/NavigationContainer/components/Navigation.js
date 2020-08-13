@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import HomeIcon from '@material-ui/icons/Home';
 import PersonIcon from '@material-ui/icons/Person';
 import VacationsIcon from '@material-ui/icons/AirplanemodeActive';
 import ExitIcon from '@material-ui/icons/ExitToApp';
@@ -168,7 +167,7 @@ function Navigation({ routes, user, logout, updateThemeMode, isAuthenticated }) 
                     <PrivateRoute path="/" exact isAuthenticated={isAuthenticated} Component={VacationsContainer} />
                     <PublicRoute path="/login" exact isAuthenticated={isAuthenticated} Component={LoginPage} />
                     <PrivateRoute path="/profile" exact isAuthenticated={isAuthenticated} Component={ProfileContainer} />
-                    <PrivateRoute path="/vacation" exact isAuthenticated={isAuthenticated} Component={VacationDetailsContainer} />
+                    <PrivateRoute path="/vacation/:id" exact isAuthenticated={isAuthenticated} Component={VacationDetailsContainer} />
                 </RouterSwitch>
             </main>
         </div>

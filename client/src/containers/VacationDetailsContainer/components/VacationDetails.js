@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { useParams } from 'react-router-dom';
 
-function VacationDetails({ vacation }) {
+function VacationDetails({ vacation, dispatchGetVacationDetails }) {
     const { id } = useParams();
+
+    useEffect(() => {
+        dispatchGetVacationDetails(id);
+    }, []);
+
     return (
-        <Card>
+        <Card style={{ 'marginTop': '5rem'}}>
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -37,7 +39,7 @@ VacationDetails.defaultProp = {
     vacation: {}
 }
 
-VacationDetails.PropTypes = {
+VacationDetails.propTypes = {
     vacation: PropTypes.object
 }
 
