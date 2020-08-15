@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,7 +26,7 @@ const BasicInfo = ({ user }) => {
         <Typography component="h4" variant="h4">{user.name}</Typography>
         <Typography component="h5" variant="h5">{user.email}</Typography>
         <Typography component="h6" variant="h6">{user.phoneNumber}</Typography>
-        <Typography component="h7" variant="h7">Joined At&#160; {user.joined}</Typography>
+        <Typography component="h7" variant="h7">Joined&#160;{user.joined}</Typography>
         </Paper>);
 };
 
@@ -34,4 +34,4 @@ BasicInfo.propTypes = {
     user: PropTypes.object,
 };
 
-export default BasicInfo;
+export default memo(BasicInfo);

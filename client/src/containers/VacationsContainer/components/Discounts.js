@@ -27,7 +27,7 @@ const Discounts = ({ discounts, showDiscounts, updateShowDiscounts }) => {
 
     return (
         <>
-            <Typography variant="h6" component="h6">Discounts</Typography>
+            <Typography variant="h6" component="h6" style={{ 'marginTop': '5rem'}}>Discounts</Typography>
             <Switch
                 checked={showDiscounts}
                 onChange={updateShowDiscounts}

@@ -3,6 +3,8 @@ import * as constants from "./constants";
 
 export const initialState = {
     vacations: [],
+    discounts: [],
+    showDiscounts: false
 };
 
 /* eslint-disable no-param-reassign */

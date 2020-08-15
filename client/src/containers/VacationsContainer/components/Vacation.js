@@ -12,20 +12,20 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 500,
+        maxWidth: 500
     },
     media: {
         height: 140,
     },
 });
 
-export function Vacation({ vacation }) {
-
+export function Vacation({ vacation, updateSelectedVacation }) {
+    const handleVacationOnClick = () => updateSelectedVacation(vacation.id);
     const classes = useStyles();
 
     return (
-        <Link to={`/vacation/${vacation.id}`}>
-            <Card className={classes.root}>
+        <Link to={`/vacation/${vacation.id}`} style={{ "textDecoration": "none"  }}>
+            <Card className={classes.root} onClick={handleVacationOnClick}>
                 <CardActionArea>
                     <CardMedia
                         component="img"
@@ -39,6 +39,9 @@ export function Vacation({ vacation }) {
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
                             {vacation.description}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            ${vacation.price.toLocaleString()}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
@@ -56,7 +59,8 @@ export function Vacation({ vacation }) {
 }
 
 Vacation.propTypes = {
-    vacation: PropTypes.object
+    vacation: PropTypes.object,
+    updateSelectedVacation: PropTypes.func
 };
 
 export default Vacation;

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -28,7 +29,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles({
     table: {
-        minWidth: 700,
+        minWidth: 1200,
     },
 });
 
@@ -54,7 +55,7 @@ function OrdersHistory({ orders }) {
                             </StyledTableCell>
                             <StyledTableCell>{row.from}</StyledTableCell>
                             <StyledTableCell>{row.to}</StyledTableCell>
-                            <StyledTableCell align="right">{row.price}&#36;</StyledTableCell>
+                            <StyledTableCell align="right">&#36;{row.price.toLocaleString()}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
@@ -63,6 +64,8 @@ function OrdersHistory({ orders }) {
     );
 }
 
-OrdersHistory.propTypes = {};
+OrdersHistory.propTypes = {
+    orders: PropTypes.array
+};
 
-export default OrdersHistory;
+export default memo(OrdersHistory);
